@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Reflection;
-using System.Text.Json.Serialization;
 
 namespace NumbersToWords
 {
@@ -9,31 +6,27 @@ namespace NumbersToWords
     {
         static void Main()
         {
-            Console.Write("Input a number: ");
-            var inputValue = Console.ReadLine();
-            decimal input = Convert.ToDecimal(inputValue); // Changed from decimal.Parse
+            bool repeat = true;
 
-            Console.WriteLine(NumberToWords(input));
-            Console.ReadLine();
+            while (repeat)
+            {
+                Console.Write("Input a number: ");
+                var inputValue = Console.ReadLine();
+                decimal input = Convert.ToDecimal(inputValue); // Changed from decimal.Parse
+
+                Console.WriteLine(NumberToWords(input));
+                Console.ReadLine();
+            }
         }
 
         public static string NumberToWords(decimal input) 
         {
             bool decimalNumber = CheckForDecimal(input);
-            string integralPart = NumberToWords(Convert.ToInt64(Math.Floor(input)));
+            var integralPart = NumberToWords(Convert.ToInt64(Math.Floor(input)));
+            var decimalPart = GetDecimalPart(input);
 
-            var result = string.Format("{0}", integralPart);
+            string result = decimalNumber ? string.Format("{0} Pounds and {1} Pence", integralPart, decimalPart) : string.Format("{0} Pounds", integralPart);
 
-            if (decimalNumber)
-            {
-                var decimalPart = GetDecimalPart(input);
-                result += string.Format(" Pounds and {0} Pence", decimalPart);
-            }
-
-            else if (!decimalNumber)
-            {
-                result += string.Format(" Pounds");
-            }
             return result;
         }
 
