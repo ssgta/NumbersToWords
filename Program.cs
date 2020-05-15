@@ -26,10 +26,13 @@ namespace NumbersToWords
             var integralPart = GetIntegralPart(input);
             var decimalPart = GetDecimalPart(input);
 
-            string result = integralPartIsZero ? string.Format("{0} Pence", decimalPart) :
-                decimalNumber ? string.Format("{0} Pounds and {1} Pence", integralPart, decimalPart) 
-                : string.Format("{0} Pounds", integralPart);
-            return result;
+            if (integralPartIsZero)
+                return string.Format("{0} Pence", decimalPart);
+
+            if (decimalNumber)
+                return string.Format("{0} Pounds and {1} Pence", integralPart, decimalPart);
+
+            return string.Format("{0} Pounds", integralPart);
         }
 
         private static bool CheckIntegralPartIsZero(decimal input)
