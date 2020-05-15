@@ -21,13 +21,27 @@ namespace NumbersToWords
 
         public static string GetWords(decimal input) 
         {
+            bool integralPartIsZero = CheckIntegralPartIsZero(input);
             bool decimalNumber = CheckForDecimal(input);
             var integralPart = GetIntegralPart(input);
             var decimalPart = GetDecimalPart(input);
 
-            string result = decimalNumber ? string.Format("{0} Pounds and {1} Pence", integralPart, decimalPart) : string.Format("{0} Pounds", integralPart);
-
+            string result = integralPartIsZero ? string.Format("{0} Pence", decimalPart) :
+                decimalNumber ? string.Format("{0} Pounds and {1} Pence", integralPart, decimalPart) 
+                : string.Format("{0} Pounds", integralPart);
             return result;
+        }
+
+        private static bool CheckIntegralPartIsZero(decimal input)
+        {
+            var integralValue = Math.Floor(input);
+            var decimalValue = input % 1;
+
+            if (integralValue == 0 & decimalValue != 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         private static string GetIntegralPart(decimal input)
