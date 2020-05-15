@@ -22,12 +22,19 @@ namespace NumbersToWords
         public static string NumberToWords(decimal input) 
         {
             bool decimalNumber = CheckForDecimal(input);
-            var integralPart = NumberToWords(Convert.ToInt64(Math.Floor(input)));
+            var integralPart = GetIntegralPart(input);
             var decimalPart = GetDecimalPart(input);
 
-            string result = decimalNumber ? string.Format("{0} Pounds and {1} Pence", integralPart, decimalPart) : string.Format("{0} Pounds", integralPart);
+            string result = decimalNumber ? string.Format("{0} Pounds and {1} Pence", integralPart, decimalPart) : string.Format("{0}", integralPart);
 
             return result;
+        }
+
+        private static string GetIntegralPart(decimal input)
+        {
+            long integralPart = Convert.ToInt64(Math.Floor(input));
+
+            return NumberToWords(integralPart);
         }
 
         private static string GetDecimalPart(decimal input)
@@ -78,7 +85,7 @@ namespace NumbersToWords
                 words += NumberToWords((decimal)(input / 100)) + " Hundred ";
                 input %= 100;
             }
-
+            
             if (input > 0)
             {
                 if (words != "")
