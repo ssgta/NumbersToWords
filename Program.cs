@@ -14,18 +14,18 @@ namespace NumbersToWords
                 var inputValue = Console.ReadLine();
                 decimal input = Convert.ToDecimal(inputValue); // Changed from decimal.Parse
 
-                Console.WriteLine(NumberToWords(input));
+                Console.WriteLine(GetWords(input));
                 Console.ReadLine();
             }
         }
 
-        public static string NumberToWords(decimal input) 
+        public static string GetWords(decimal input) 
         {
             bool decimalNumber = CheckForDecimal(input);
             var integralPart = GetIntegralPart(input);
             var decimalPart = GetDecimalPart(input);
 
-            string result = decimalNumber ? string.Format("{0} Pounds and {1} Pence", integralPart, decimalPart) : string.Format("{0}", integralPart);
+            string result = decimalNumber ? string.Format("{0} Pounds and {1} Pence", integralPart, decimalPart) : string.Format("{0} Pounds", integralPart);
 
             return result;
         }
@@ -64,25 +64,25 @@ namespace NumbersToWords
 
             if ((input / 1000000000) > 0) 
             {
-                words += NumberToWords((decimal)(input / 1000000000)) + " Billion ";
+                words += NumberToWords((long)(input / 1000000000)) + " Billion ";
                 input %= 1000000000;
             }
 
             if ((input / 1000000) > 0)
             {
-                words += NumberToWords((decimal)(input / 1000000)) + " Million ";
+                words += NumberToWords((long)(input / 1000000)) + " Million ";
                 input %= 1000000;
             }
 
             if ((input / 1000) > 0)
             {
-                words += NumberToWords((decimal)(input / 1000)) + " Thousand ";
+                words += NumberToWords((long)(input / 1000)) + " Thousand ";
                 input %= 1000;
             }
 
             if ((input / 100) > 0)
             {
-                words += NumberToWords((decimal)(input / 100)) + " Hundred ";
+                words += NumberToWords((long)(input / 100)) + " Hundred ";
                 input %= 100;
             }
             
