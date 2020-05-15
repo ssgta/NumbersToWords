@@ -7,12 +7,12 @@ namespace NumbersToWords
         static void Main()
         {
             bool repeat = true;
-
+            // Intentional infinite loop
             while (repeat)
             {
                 Console.Write("Input a number: ");
                 var inputValue = Console.ReadLine();
-                decimal input = Convert.ToDecimal(inputValue); // Changed from decimal.Parse
+                decimal input = Convert.ToDecimal(inputValue);
 
                 Console.WriteLine(GetWords(input));
                 Console.ReadLine();
